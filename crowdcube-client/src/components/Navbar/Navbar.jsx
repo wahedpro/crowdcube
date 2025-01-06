@@ -60,7 +60,7 @@ const Navbar = () => {
                         <div className="relative group flex items-center">
                             <img className="w-10 h-10 rounded-full cursor-pointer" src={user.photoURL} alt="User Profile" />
                             <div
-                                className={`absolute top-12 -right-12 shadow-md rounded p-4 flex flex-col gap-2 items-start w-40 hidden group-hover:flex z-50 ${isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-700"
+                                className={`absolute top-12 -right-12 shadow-md rounded p-4 flex-col gap-2 items-start w-40 hidden group-hover:flex z-50 ${isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-700"
                                     }`}
                             >
                                 <span className="whitespace-normal break-words">{user.displayName}</span>
