@@ -1,24 +1,38 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { TbCategory } from "react-icons/tb";
 import { authContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const DetailsPage = () => {
     const campaign = useLoaderData();
-    const { user } = useContext(authContext);
-    const { displayName: loginUserName, email: loginUserEmail } = user;
+    const navigate = useNavigate(); // For navigation
+    const { user } = useContext(authContext); // User context
     const { thumbnail, title, option, description, amount, deadline, userName, userEmail } = campaign;
 
     const submitDonateInfo = (event) => {
         event.preventDefault();
+
+        // Check if the user is logged in
+        if (!user) {
+            Swal.fire({
+                title: "Login Required",
+                text: "Please login to donate to this campaign.",
+                icon: "warning",
+                confirmButtonText: "Go to Login",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/login"); // Redirect to login page
+                }
+            });
+            return; // Exit the function if user is not logged in
+        }
 
         // Check if the deadline has passed
         const currentDate = new Date();
         const campaignDeadline = new Date(deadline);
 
         if (campaignDeadline < currentDate) {
-            // Show a message/toast/modal if the deadline is over
             Swal.fire({
                 title: "Deadline Passed",
                 text: "You cannot donate to this campaign because the deadline has passed.",
@@ -37,8 +51,8 @@ const DetailsPage = () => {
             deadline,
             userName,
             userEmail,
-            loginUserName,
-            loginUserEmail,
+            loginUserName: user.displayName,
+            loginUserEmail: user.email,
         };
 
         console.log(donateeInfo);
@@ -63,7 +77,7 @@ const DetailsPage = () => {
                 }
             })
             .catch((error) => {
-                console.error("Error:", error); // Handle any network errors
+                console.error("Error:", error);
             });
     };
 
@@ -93,7 +107,9 @@ const DetailsPage = () => {
                     <p>{userName}</p>
                     <p>{userEmail}</p>
                 </div>
-                <button onClick={submitDonateInfo} className="px-5 py-2 rounded bg-[#2ecc71] hover:bg-[#32b96b]">Donate</button>
+                <button onClick={submitDonateInfo} className="px-5 py-2 rounded bg-[#2ecc71] hover:bg-[#32b96b]">
+                    Donate
+                </button>
             </div>
         </div>
     );

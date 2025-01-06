@@ -30,7 +30,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "detailsPage/:id",
-                element:<PrivateRoute><DetailsPage></DetailsPage></PrivateRoute>,
+                element:<DetailsPage></DetailsPage>,
                 loader:({params})=>fetch(`https://crowdcube-server-five.vercel.app/campaignInfo/${params.id}`),
                 
             },
