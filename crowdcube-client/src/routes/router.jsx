@@ -11,6 +11,9 @@ import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage";
 import DetailsPage from "../pages/DetailsPage";
 import UpdateCampaignPage from "../pages/UpdateCampaignPage";
+import SupportPage from "../pages/SupportPage";
+import ContactUsPage from "../pages/ContactUsPage";
+import AboutUsPage from "../pages/AboutUsPage";
 
 
 const router = createBrowserRouter([
@@ -64,6 +67,18 @@ const router = createBrowserRouter([
             {
                 path: '*',
                 element: <ErrorPage></ErrorPage>
+            },
+            {
+                path: 'Support',
+                element: <SupportPage></SupportPage>
+            },
+            {
+                path: 'ContactUs',
+                element: <ContactUsPage></ContactUsPage>
+            },
+            {
+                path: 'AboutUs',
+                element: <AboutUsPage></AboutUsPage>
             }
         ]
     },
